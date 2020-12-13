@@ -1,3 +1,15 @@
+<!--新規投稿投稿エラーメッセージ-->
+<% if @task.errors.any? %>
+  <div class="alert alert-danger my-2">
+    <div><strong><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</strong></div>
+    <ul>
+      <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="row-12 my-3">
   <h1>タスクの新規登録</h1>
 </div>

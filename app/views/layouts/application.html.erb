@@ -10,8 +10,25 @@
   </head>
 
   <body>
-    <header class="p-4 bg-light">Taskleaf</header>
+    <header class="p-4 bg-light">
+      <h2>Taskleaf</h2>
+
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "新規登録", new_user_registration_path  %>
+          </li>
+          <li>
+            <%= link_to "ログイン", new_user_session_path %>
+          </li>
+        <% end %>
+    </header>
+
     <div class="container">
+      <!--フラッシュメッセージ-->
       <% flash.each do |name, msg| %>
         <div class="alert alert-<%= name %> m-3">
           <%= msg.html_safe %>

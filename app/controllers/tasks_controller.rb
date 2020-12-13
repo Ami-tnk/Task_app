@@ -5,8 +5,12 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save
-    redirect_to tasks_path, success:"タスク「#{@task.name}」を登録しました。"
+    @task.user_id = current_user.id
+    if @task.save
+      redirect_to tasks_path, success:"タスク「#{@task.name}」を登録しました。"
+    else
+      render :new
+    end
   end
 
   def index
@@ -23,8 +27,11 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update(task_params)
-    redirect_to tasks_path, success:"タスク「#{@task.name}」を更新しました。"
+    if @task.update(task_params)
+      redirect_to tasks_path, success:"タスク「#{@task.name}」を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -36,6 +43,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :discription)
+    params.require(:task).permit(:name, :description)
   end
 end
