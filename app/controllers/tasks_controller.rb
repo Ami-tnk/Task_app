@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
+    @user = User.find(params[:id])
     if @task.save
       redirect_to tasks_path, success:"タスク「#{@task.name}」を登録しました。"
     else
@@ -15,6 +16,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    @user = User.find(current_user.id)
   end
 
   def show
