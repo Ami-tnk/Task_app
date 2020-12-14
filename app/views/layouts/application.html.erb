@@ -10,21 +10,30 @@
   </head>
 
   <body>
-    <header class="p-4 bg-light">
-      <h2>Taskleaf</h2>
+    <header>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Taskleaf</a>
 
-        <% if user_signed_in? %>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "新規登録", new_user_registration_path  %>
-          </li>
-          <li>
-            <%= link_to "ログイン", new_user_session_path %>
-          </li>
-        <% end %>
+            <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "#{@user.name} さん", users_path(@user.id) %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_user_registration_path  %>
+              </li>
+              <li class="nav-item ">
+                <%= link_to "ログイン", new_user_session_path %>
+              </li>
+            <% end %>
+            </ul>
+        </div>
+      </nav>
     </header>
 
     <div class="container">
@@ -37,5 +46,7 @@
 
       <%= yield %>
     </div>
+
+    <footer class="container-fluid bg-light text-center mt-3">Taskleaf</footer>
   </body>
 </html>
