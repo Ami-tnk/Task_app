@@ -1,0 +1,11 @@
+<% task.task_comments.each do |task_comment| %>
+<table class=table>
+  <tr>
+    <td><%= task_comment.user.name %></td>
+    <td><%= task_comment.comment %></td>
+  <% if task_comment.user == current_user %>
+    <td><%= link_to '削除', task_task_comment_path(task_comment.task, task_comment), method: :delete,  class: 'btn btn-danger' %></td>
+  <% end %>
+  </tr>
+</table>
+<% end %>

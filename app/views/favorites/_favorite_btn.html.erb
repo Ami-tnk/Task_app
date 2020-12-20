@@ -3,13 +3,13 @@
     <%= link_to task_favorites_path(task), class: "text-danger", method: :delete do %>
       <i class="fas fa-heart"></i><%= task.favorites.count %>
     <% end %>
+    <td></td>
   </td>
-  <td></td>
 <% else %>
   <td>
-    <%= link_to task_favorites_path(task), method: :post do %>
-    　<i class="fas fa-heart"></i><%= task.favorites.count %>
+    <%= link_to task_favorites_path(task), class: "text-primary", method: :post do %>
+      <i class="fas fa-heart"></i><%= task.favorites.count %>
     <% end %>
+    <td></td>
   </td>
-  <td></td>
 <% end %>
