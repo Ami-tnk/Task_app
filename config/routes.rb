@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
 
   root to: 'homes#top'
-  resources :tasks
+  resources :tasks do
+    resource :favorites, only: [:create, :destroy]
+  end
 end

@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_path, success:"タスク「#{@task.name}」を更新しました。"
+      redirect_to task_path(@task.id), success:"タスク「#{@task.name}」を更新しました。"
     else
       render :edit
     end
