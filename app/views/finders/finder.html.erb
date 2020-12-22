@@ -1,2 +1,52 @@
 <h1>Finders#finder</h1>
-<p>Find me in app/views/finders/finder.html.erb</p>
+
+<% if @model == "user" %>
+  <% @datas.each do |user| %>
+  <table class="table">
+    <tr>
+      <th>名前</th>
+      <th>登録日時</th>
+      <th></th>
+    </tr>
+
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.created_at %></td>
+      <td>
+      <% if current_user != user %>
+        <% if user.followed_by?(current_user) %>
+          <p><%=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
+        <% else %>
+          <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+        <% end %>
+      <% end %>
+      </td>
+    </tr>
+  </table>
+  <% end %>
+
+  <% elsif @model== "task" %>
+
+    <% @datas.each do |task| %>
+    <table class="table">
+      <tr>
+        <th>名称</th>
+        <th>登録日時</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <td><%= link_to task.name, task_path(task.id) %></td>
+        <td><%= task.created_at %></td>
+        <td><%= render 'favorites/favorite_btn', task: task %></td>
+        <td><p>コメント数: <%= task.task_comments.count %></td>
+        <td><%= link_to '編集', edit_task_path(task), class: 'btn btn-primary' %></td>
+        <td><%= link_to '削除', task, method: :delete,  class: 'btn btn-danger', data: {confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} %></td>
+      </tr>
+    </table>
+    <% end %>
+
+  <% end %>
+
